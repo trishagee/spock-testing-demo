@@ -1,6 +1,7 @@
 package com.mechanitis.demo.spock
 
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class ExampleSpecification extends Specification {
     def "should demonstrate a simple assertion"() {
@@ -19,7 +20,8 @@ class ExampleSpecification extends Specification {
         sides == 4
     }
 
-    def "should demonstrate simple data driven testing"() {
+    @Unroll
+    def "should demonstrate simple data driven testing. Number of sides: #expected"() {
         expect:
         shape.numberOfSides() == expected
 
