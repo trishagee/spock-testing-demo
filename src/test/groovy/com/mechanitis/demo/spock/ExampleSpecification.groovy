@@ -29,4 +29,16 @@ class ExampleSpecification extends Specification {
         expected << [3, 4, 5, 8, 14]
         shape = new Shape(expected)
     }
+
+    def "should be able to mock a concrete class"() {
+        given:
+        Renderer renderer = Mock()
+        def shape = new Shape(4, renderer)
+
+        when:
+        shape.draw()
+
+        then:
+        4 * renderer.drawLine()
+    }
 }
