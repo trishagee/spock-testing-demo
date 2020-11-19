@@ -1,9 +1,13 @@
 package com.mechanitis.demo.spock
 
 import spock.lang.Specification
+import spock.lang.Subject
 import spock.lang.Unroll
 
 class ExampleSpecification extends Specification {
+    @Subject
+    Shape theTestSubject = new Shape(56)
+
     def "should demonstrate a simple assertion"() {
         expect:
         1 == 1
@@ -40,5 +44,16 @@ class ExampleSpecification extends Specification {
 
         then:
         4 * renderer.drawLine()
+    }
+
+    def "should be able to use a stub"() {
+        given:
+        Palette palette = Stub()
+        palette.getForegroundColour() >> Colour.Red
+        @Subject
+        def renderer = new Renderer(palette)
+
+        expect:
+        renderer.getForegroundColour() == Colour.Red
     }
 }
