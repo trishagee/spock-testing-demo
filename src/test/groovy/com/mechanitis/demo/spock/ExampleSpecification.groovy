@@ -20,7 +20,7 @@ class ExampleSpecification extends Specification {
         def shape = new Polygon(4)
 
         when:
-        int sides = shape.numberOfSides()
+        int sides = shape.getNumberOfSides()
 
         then:
         sides == 4
@@ -40,7 +40,7 @@ class ExampleSpecification extends Specification {
     @Unroll
     def "should demonstrate simple data driven testing. Number of sides: #expected"() {
         expect:
-        shape.numberOfSides() == expected
+        shape.getNumberOfSides() == expected
 
         where:
         expected << [3, 4, 5, 8, 14]
@@ -80,5 +80,22 @@ class ExampleSpecification extends Specification {
 
         expect:
         renderer.getForegroundColour() == Colour.Red
+    }
+
+    def "should demonstrate helper methods"() {
+        given:
+        def renderer = Mock(Renderer)
+        def shapeFactory = new ShapeFactory(renderer)
+
+        when:
+        def shape = shapeFactory.createDefaultPolygon()
+
+        then:
+        checkDefaultShape(shape, renderer)
+    }
+
+    private static void checkDefaultShape(Polygon shape, Renderer renderer) {
+        assert shape.numberOfSides == 4
+        assert shape.renderer == renderer
     }
 }
