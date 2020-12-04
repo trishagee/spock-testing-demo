@@ -1,7 +1,7 @@
 package com.mechanitis.demo.spock;
 
 public class Palette {
-    public Colour getForegroundColour() {
+    public Colour getPrimaryColour() {
         return null;
     }
 }

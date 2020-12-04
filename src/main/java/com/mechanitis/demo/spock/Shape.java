@@ -5,6 +5,9 @@ class Shape {
     private Renderer renderer;
 
     Shape(int numberOfSides) {
+        if (numberOfSides <= 2) {
+            throw new TooFewSidesException("The shape must have more than 2 sides", numberOfSides);
+        }
         this.numberOfSides = numberOfSides;
     }
 

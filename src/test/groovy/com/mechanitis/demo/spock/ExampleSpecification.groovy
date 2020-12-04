@@ -5,6 +5,7 @@ import spock.lang.Subject
 import spock.lang.Unroll
 
 class ExampleSpecification extends Specification {
+
     @Subject
     Shape theTestSubject = new Shape(56)
 
@@ -13,6 +14,7 @@ class ExampleSpecification extends Specification {
         1 == 1
     }
 
+    // can use just when-then if there's no setup
     def "should demonstrate given-when-then"() {
         given:
         def shape = new Shape(4)
@@ -24,6 +26,17 @@ class ExampleSpecification extends Specification {
         sides == 4
     }
 
+    def "should expect Exceptions"() {
+        when:
+        new Shape(0)
+
+        then:
+        // no need for .class
+        def e = thrown(TooFewSidesException)
+        // no need for get
+        e.numberOfSides == 0
+    }
+
     @Unroll
     def "should demonstrate simple data driven testing. Number of sides: #expected"() {
         expect:
@@ -32,6 +45,10 @@ class ExampleSpecification extends Specification {
         where:
         expected << [3, 4, 5, 8, 14]
         shape = new Shape(expected)
+    }
+
+    def "should demonstrate data tables"() {
+
     }
 
     def "should be able to mock a concrete class"() {
@@ -49,7 +66,7 @@ class ExampleSpecification extends Specification {
     def "should be able to use a stub"() {
         given:
         Palette palette = Stub()
-        palette.getForegroundColour() >> Colour.Red
+        palette.getPrimaryColour() >> Colour.Red
         @Subject
         def renderer = new Renderer(palette)
 
