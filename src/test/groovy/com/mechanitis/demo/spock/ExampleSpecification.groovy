@@ -37,6 +37,18 @@ class ExampleSpecification extends Specification {
         e.numberOfSides == 0
     }
 
+    def "should expect Exceptions for more than one value"() {
+        when:
+        new Polygon(sides)
+
+        then:
+        def e = thrown(TooFewSidesException)
+        e.numberOfSides == sides
+
+        where:
+        sides << [0, 1, 2]
+    }
+
     @Unroll
     def "should demonstrate simple data driven testing. Number of sides: #expected"() {
         expect:
