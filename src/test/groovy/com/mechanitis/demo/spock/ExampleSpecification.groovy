@@ -7,7 +7,7 @@ import spock.lang.Unroll
 class ExampleSpecification extends Specification {
 
     @Subject
-    Shape theTestSubject = new Shape(56)
+    Polygon theTestSubject = new Polygon(56)
 
     def "should demonstrate a simple assertion"() {
         expect:
@@ -17,7 +17,7 @@ class ExampleSpecification extends Specification {
     // can use just when-then if there's no setup
     def "should demonstrate given-when-then"() {
         given:
-        def shape = new Shape(4)
+        def shape = new Polygon(4)
 
         when:
         int sides = shape.numberOfSides()
@@ -28,7 +28,7 @@ class ExampleSpecification extends Specification {
 
     def "should expect Exceptions"() {
         when:
-        new Shape(0)
+        new Polygon(0)
 
         then:
         // no need for .class
@@ -44,7 +44,7 @@ class ExampleSpecification extends Specification {
 
         where:
         expected << [3, 4, 5, 8, 14]
-        shape = new Shape(expected)
+        shape = new Polygon(expected)
     }
 
     def "should demonstrate data tables"() {
@@ -54,7 +54,7 @@ class ExampleSpecification extends Specification {
     def "should be able to mock a concrete class"() {
         given:
         Renderer renderer = Mock()
-        def shape = new Shape(4, renderer)
+        def shape = new Polygon(4, renderer)
 
         when:
         shape.draw()
