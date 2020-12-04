@@ -98,4 +98,39 @@ class ExampleSpecification extends Specification {
         assert shape.numberOfSides == 4
         assert shape.renderer == renderer
     }
+
+    def "should demonstrate 'with'"() {
+        given:
+        def renderer = Mock(Renderer)
+        def shapeFactory = new ShapeFactory(renderer)
+
+        when:
+        def shape = shapeFactory.createDefaultPolygon()
+
+        then:
+        with(shape) {
+            numberOfSides == 5
+            renderer == null
+        }
+    }
+
+    def "should demonstrate 'verifyAll'"() {
+        given:
+        def renderer = Mock(Renderer)
+        def shapeFactory = new ShapeFactory(renderer)
+
+        when:
+        def shape = shapeFactory.createDefaultPolygon()
+
+        then:
+        verifyAll(shape) {
+            numberOfSides == 5
+            renderer == null
+        }
+        verifyAll {
+            2 == 1
+            4 == 2
+        }
+    }
+
 }
