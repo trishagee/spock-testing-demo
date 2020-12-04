@@ -109,8 +109,8 @@ class ExampleSpecification extends Specification {
 
         then:
         with(shape) {
-            numberOfSides == 5
-            renderer == null
+            numberOfSides == 4
+            renderer == renderer
         }
     }
 
@@ -124,13 +124,24 @@ class ExampleSpecification extends Specification {
 
         then:
         verifyAll(shape) {
-            numberOfSides == 5
-            renderer == null
+            numberOfSides == 4
+            renderer == renderer
         }
         verifyAll {
-            2 == 1
-            4 == 2
+            2 == 2
+            4 == 4
         }
     }
 
+    def "should show specification as documentation"() {
+        given: "a palette with red as the primary colour"
+        Palette palette = Stub()
+        palette.getPrimaryColour() >> Colour.Red
+
+        and: "a renderer initialised with the red palette"
+        def renderer = new Renderer(palette)
+
+        expect: "the renderer uses the palette's primary colour as the foreground colour"
+        renderer.getForegroundColour() == Colour.Red
+    }
 }
