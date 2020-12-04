@@ -47,13 +47,21 @@ class ExampleSpecification extends Specification {
         shape = new Polygon(expected)
     }
 
-    def "should demonstrate data tables"() {
+    def "should demonstrate data tables. Max of #a and #b should be #c"() {
+        expect:
+        Math.max(a, b) == c
 
+        where:
+        a | b || c
+        1 | 3 || 3
+        7 | 4 || 7
+        0 | 0 || 0
     }
 
     def "should be able to mock a concrete class"() {
         given:
         Renderer renderer = Mock()
+        @Subject
         def shape = new Polygon(4, renderer)
 
         when:
