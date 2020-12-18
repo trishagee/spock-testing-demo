@@ -1,4 +1,5 @@
-# Spock Testing Tutorial
+# Spock Testing Tutorial [![JetBrains team project](http://jb.gg/badges/team.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
+
 Simple project to show how to use Spock to test Java code.
 
 This code was the basis for the JetBrains IntelliJ IDEA Spock tutorial video. The code may not be exactly the same as in the video, but the examples are aligned. 
@@ -14,5 +15,3 @@ This tutorial (the code and the video) were inspired by the work I did some time
  - [Spock is awesome! Seriously Simplified Mocking](https://trishagee.com/2013/07/09/spock_is_awesome_seriously_simplified_mocking/)
  - [Spock passes the next test – Painless Stubbing](https://trishagee.com/2013/07/10/spock_passes_the_next_test__painless_stubbing/)
  - [Spock: Data Driven Testing](https://trishagee.com/2013/12/20/spock_data_driven_testing/)
- 
-
