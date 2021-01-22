@@ -2,7 +2,7 @@
 
 Simple project to show how to use Spock to test Java code.
 
-This code was the basis for the JetBrains IntelliJ IDEA Spock tutorial video. The code may not be exactly the same as in the video, but the examples are aligned. 
+This code was the basis for the JetBrains [IntelliJ IDEA Spock tutorial video](https://youtu.be/i5Qu3qYOfsM). The code may not be exactly the same as in the video, but the examples are aligned. 
 
 Download this code and play with it to see what Spock might offer you.
 
