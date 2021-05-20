@@ -1,3 +1,4 @@
+//file:noinspection GroovyAssignabilityCheck
 package com.mechanitis.demo.spock
 
 import spock.lang.Specification
@@ -137,11 +138,7 @@ class ExampleSpecification extends Specification {
         then:
         verifyAll(shape) {
             numberOfSides == 4
-            renderer == renderer
-        }
-        verifyAll {
-            2 == 2
-            4 == 4
+            it.renderer == renderer
         }
     }
 
