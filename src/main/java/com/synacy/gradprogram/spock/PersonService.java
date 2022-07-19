@@ -1,5 +1,7 @@
 package com.synacy.gradprogram.spock;
 
+import java.util.UUID;
+
 public class PersonService {
 
     private final PersonRepository personRepository;
@@ -15,6 +17,14 @@ public class PersonService {
 
         personRepository.save(person);
 
-        eventPublisher.publishMessage(person.toString());
+        eventPublisher.publishMessage("Saved person >> " + person);
+    }
+
+    public void deletePerson(UUID id) {
+        Person person = personRepository.findById(id);
+
+        personRepository.delete(person);
+
+        eventPublisher.publishMessage("Deleted person >> " + person);
     }
 }

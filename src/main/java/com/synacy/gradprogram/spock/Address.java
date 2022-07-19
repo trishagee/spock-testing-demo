@@ -1,14 +1,23 @@
 package com.synacy.gradprogram.spock;
 
+import java.util.UUID;
+
 public class Address {
+
+    private final UUID id;
     private String country;
     private String city;
     private String street;
 
     public Address(String country, String city, String street) {
+        this.id = UUID.randomUUID();
         this.country = country;
         this.city = city;
         this.street = street;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public String getCountry() {
