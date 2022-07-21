@@ -5,7 +5,7 @@ import spock.lang.Specification
 class AddressSpec extends Specification {
     def "getCountry() should return the expected country address"() {
         given:
-        Address address = new Address("Philippines", "Cebu", "pope john paul blah")
+        Address address = new Address("Philippines", "Cebu", "Kasambagan")
 
         when:
         String countryLocation = address.getCountry()

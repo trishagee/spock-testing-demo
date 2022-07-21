@@ -45,8 +45,13 @@ public class Address {
     }
 
     public String toString() {
+        MockMethod();
         return "Country: " + country +
                 ", City: " + city +
                 ", Street: " + street;
+    }
+
+    public void MockMethod (){
+        //do nothing
     }
 }

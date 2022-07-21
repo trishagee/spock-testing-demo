@@ -4,10 +4,10 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 class PersonSpec extends Specification {
-    static int personAge = 0;
-    static Sex personSex = Sex.MALE;
+    static int age = 0;
+    static Sex sex = Sex.MALE;
     Address address = new Address("CountryName", "CityName", "StreetName")
-    Person person = new Person("PersonName", personAge, address, personSex)
+    Person person = new Person("PersonName", age, address, sex)
 
     def "getName() should return string name being set"() {
         when:
@@ -29,10 +29,10 @@ class PersonSpec extends Specification {
     @Unroll
     def "getAge() should return int age being set: #expectedAge"() {
         when:
-        Person TestAge = new Person("PersonName", expectedAge, address, personSex)
+        Person testAge = new Person("PersonName", expectedAge, address, sex)
 
         then:
-        TestAge.getAge() == expectedAge
+        testAge.getAge() == expectedAge
 
 
         where:
@@ -45,11 +45,11 @@ class PersonSpec extends Specification {
     def "setAge() should return expected int age: #expectedAge"() {
 
         when:
-        Person TestAge = new Person("PersonName", 12, address, personSex)
-        TestAge.setAge(expectedAge)
+        Person testAge = new Person("PersonName", 12, address, sex)
+        testAge.setAge(expectedAge)
 
         then:
-        TestAge.getAge() == expectedAge
+        testAge.getAge() == expectedAge
 
         where:
         expectedAge << (1..50)
@@ -57,25 +57,25 @@ class PersonSpec extends Specification {
 
     def "getAddress() should return group of string address being set"() {
         given:
-        Address TestAddress = new Address("Japan", "Tokyo", "Yokohama")
+        Address testAddress = new Address("Japan", "Tokyo", "Yokohama")
 
         when:
-        Person TestPerson = new Person("TestPersonName", personAge, TestAddress, personSex)
+        Person TestPerson = new Person("TestPersonName", age, testAddress, sex)
 
         then:
-        TestPerson.getAddress() == TestAddress
+        TestPerson.getAddress() == testAddress
     }
 
     def "setAddress() should return expected address"() {
         given:
-        Address TestAddress = new Address("Philippines", "Manila", "Tondo")
+        Address testAddress = new Address("Philippines", "Manila", "Tondo")
 
         when:
-        Person TestPerson = new Person("TestPersonName", personAge, address, personSex)
-        TestPerson.setAddress(TestAddress)
+        Person TestPerson = new Person("TestPersonName", age, address, sex)
+        TestPerson.setAddress(testAddress)
 
         then:
-        TestPerson.getAddress() == TestAddress
+        TestPerson.getAddress() == testAddress
     }
 
     def "getSex() should return sex object being set"() {
@@ -100,14 +100,15 @@ class PersonSpec extends Specification {
 
     def "toString() should return a string with the Name, Age, Address, and Sex as single phrase"() {
         given:
-        Address TestAddress = new Address("Philippines", "Cebu City", "Mabolo")
+        Address testAddress = new Address("Philippines", "Cebu City", "Mabolo")
 
         when:
-        Person TestPerson = new Person("Maria Dela Cruz", 23, TestAddress, Sex.FEMALE)
+        Person testPerson = new Person("Maria Dela Cruz", 23, testAddress, Sex.FEMALE)
 
         then:
         String expectedString = "Name: Maria Dela Cruz, Age: 23, Address: (Country: Philippines, City: Cebu City, Street: Mabolo), Sex: FEMALE"
-        TestPerson.toString() == expectedString
+        testPerson.toString() == expectedString
 
     }
+
 }
