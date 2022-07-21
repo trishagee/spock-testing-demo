@@ -54,49 +54,60 @@ class PersonSpec extends Specification {
         where:
         expectedAge << (1..50)
     }
-//
-//    def "test getAddress"() {
-//        given:
-//
-//        when:
-//        // TODO implement stimulus
-//        then:
-//        // TODO implement assertions
-//    }
-//
-//    def "test setAddress"() {
-//        given:
-//
-//        when:
-//        // TODO implement stimulus
-//        then:
-//        // TODO implement assertions
-//    }
-//
-//    def "test getSex"() {
-//        given:
-//
-//        when:
-//        // TODO implement stimulus
-//        then:
-//        // TODO implement assertions
-//    }
-//
-//    def "test setSex"() {
-//        given:
-//
-//        when:
-//        // TODO implement stimulus
-//        then:
-//        // TODO implement assertions
-//    }
-//
-//    def "test toString"() {
-//        given:
-//
-//        when:
-//        // TODO implement stimulus
-//        then:
-//        // TODO implement assertions
-//    }
+
+    def "getAddress() should return group of string address being set"() {
+        given:
+        Address TestAddress = new Address("Japan", "Tokyo", "Yokohama")
+
+        when:
+        Person TestPerson = new Person("TestPersonName", personAge, TestAddress, personSex)
+
+        then:
+        TestPerson.getAddress() == TestAddress
+    }
+
+    def "setAddress() should return expected address"() {
+        given:
+        Address TestAddress = new Address("Philippines", "Manila", "Tondo")
+
+        when:
+        Person TestPerson = new Person("TestPersonName", personAge, address, personSex)
+        TestPerson.setAddress(TestAddress)
+
+        then:
+        TestPerson.getAddress() == TestAddress
+    }
+
+    def "getSex() should return sex object being set"() {
+        when:
+        person.setSex(Sex.FEMALE)
+
+        then:
+        person.getSex() == Sex.FEMALE
+
+    }
+
+    def "setSex() should return expected sex: #expectedSex"() {
+        when:
+        person.setSex(expectedSex)
+
+        then:
+        person.getSex() == expectedSex
+
+        where:
+        expectedSex << [Sex.MALE, Sex.FEMALE]
+    }
+
+    def "toString() should return a string with the Name, Age, Address, and Sex as single phrase"() {
+        given:
+        Address TestAddress = new Address("Philippines", "Cebu City", "Mabolo")
+
+        when:
+        Person TestPerson = new Person("Maria Dela Cruz", 23, TestAddress, Sex.FEMALE)
+
+        then:
+        String expectedString = "Name: Maria Dela Cruz, Age: 23, Address: (Country: Philippines, City: Cebu City, Street: Mabolo), Sex: FEMALE"
+        TestPerson.toString() == expectedString
+
+    }
 }
