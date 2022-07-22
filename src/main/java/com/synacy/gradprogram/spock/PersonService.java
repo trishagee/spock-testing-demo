@@ -18,6 +18,7 @@ public class PersonService {
         personRepository.save(person);
 
         eventPublisher.publishMessage("Saved person >> " + person);
+
     }
 
     public void deletePerson(UUID id) {

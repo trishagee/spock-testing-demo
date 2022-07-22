@@ -26,4 +26,18 @@ class PersonServiceSpec extends Specification {
             assert Sex.MALE == passedPerson.sex
         }
     }
+
+    def "publishMessage() should return expected + valuesOfPerson"() {
+        given:
+        Address address = Mock()
+
+        when:
+        service.addPerson("Kenichi", 32, address, Sex.MALE)
+
+        then:
+        1 * eventPublisher.publishMessage("Saved person >> Name: Kenichi, Age: 32, Address: (Mock for type 'Address' named 'address'), Sex: MALE")
+
+    }
+
+
 }
