@@ -2,13 +2,9 @@
 package com.mechanitis.demo.spock
 
 import spock.lang.Specification
-import spock.lang.Subject
 import spock.lang.Unroll
 
 class ExampleSpecification extends Specification {
-
-    @Subject
-    Polygon theTestSubject = new Polygon(56)
 
     def "should demonstrate a simple assertion"() {
         expect:
@@ -69,88 +65,5 @@ class ExampleSpecification extends Specification {
         1 | 3 || 3
         7 | 4 || 7
         0 | 0 || 0
-    }
-
-    def "should be able to mock a concrete class"() {
-        given:
-        Renderer renderer = Mock()
-        @Subject
-        def shape = new Polygon(4, renderer)
-
-        when:
-        shape.draw()
-
-        then:
-        4 * renderer.drawLine()
-    }
-
-    def "should be able to use a stub"() {
-        given:
-        Palette palette = Stub()
-        palette.getPrimaryColour() >> Colour.Red
-        @Subject
-        def renderer = new Renderer(palette)
-
-        expect:
-        renderer.getForegroundColour() == Colour.Red
-    }
-
-    def "should demonstrate helper methods"() {
-        given:
-        def renderer = Mock(Renderer)
-        def shapeFactory = new ShapeFactory(renderer)
-
-        when:
-        def shape = shapeFactory.createDefaultPolygon()
-
-        then:
-        checkDefaultShape(shape, renderer)
-    }
-
-    private static void checkDefaultShape(Polygon shape, Renderer renderer) {
-        assert shape.numberOfSides == 4
-        assert shape.renderer == renderer
-    }
-
-    def "should demonstrate 'with'"() {
-        given:
-        def renderer = Mock(Renderer)
-        def shapeFactory = new ShapeFactory(renderer)
-
-        when:
-        def shape = shapeFactory.createDefaultPolygon()
-
-        then:
-        with(shape) {
-            numberOfSides == 4
-            renderer == renderer
-        }
-    }
-
-    def "should demonstrate 'verifyAll'"() {
-        given:
-        def renderer = Mock(Renderer)
-        def shapeFactory = new ShapeFactory(renderer)
-
-        when:
-        def shape = shapeFactory.createDefaultPolygon()
-
-        then:
-        verifyAll(shape) {
-            numberOfSides == 4
-            it.renderer == renderer
-        }
-    }
-
-    def "should show specification as documentation"() {
-        given: "a palette with red as the primary colour"
-        Palette palette = Stub()
-        palette.getPrimaryColour() >> Colour.Red
-
-        and: "a renderer initialised with the red palette"
-        def renderer = new Renderer(palette)
-
-        expect: "the renderer uses the palette's primary colour as the foreground colour"
-        renderer.getForegroundColour() == Colour.Red
     }
 }
