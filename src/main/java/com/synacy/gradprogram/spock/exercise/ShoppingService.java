@@ -43,7 +43,7 @@ public class ShoppingService {
 
   public Order createAnOrder(Cart cart, String recipientName, String recipientAddress, boolean canContainFood) {
     if (!canContainFood && cartContainsFoodItem(cart)) {
-      throw new UnableToCreateOrder("Cart should not contain FOOD items");
+      throw new UnableToCreateOrderException("Cart should not contain FOOD items");
     }
 
     Order order = new Order();
