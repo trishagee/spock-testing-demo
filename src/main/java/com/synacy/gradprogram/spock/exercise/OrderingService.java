@@ -1,6 +1,6 @@
 package com.synacy.gradprogram.spock.exercise;
 
-public class ShoppingService {
+public class OrderingService {
 
   public boolean cartContainsFoodItem(Cart cart) {
     for (Item item : cart.getItems()) {
