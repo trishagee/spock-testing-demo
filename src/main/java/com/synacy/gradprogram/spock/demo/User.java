@@ -2,11 +2,21 @@ package com.synacy.gradprogram.spock.demo;
 
 public class User {
 
+  private Long id;
   private String firstName;
   private String lastName;
   private String address;
   private int age;
   private CivilStatus civilStatus;
+  private UserGroup userGroup;
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
 
   public String getFirstName() {
     return firstName;
@@ -46,5 +56,13 @@ public class User {
 
   public void setCivilStatus(CivilStatus civilStatus) {
     this.civilStatus = civilStatus;
+  }
+
+  public UserGroup getUserGroup() {
+    return userGroup;
+  }
+
+  public void setUserGroup(UserGroup userGroup) {
+    this.userGroup = userGroup;
   }
 }
