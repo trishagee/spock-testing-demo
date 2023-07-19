@@ -6,10 +6,13 @@ public class UserService {
 
   private final UserValidatorService userValidatorService;
   private final UserRepository userRepository;
+  private final UserGroupService userGroupService;
 
-  public UserService(UserValidatorService userValidatorService, UserRepository userRepository) {
+  public UserService(UserValidatorService userValidatorService, UserRepository userRepository,
+      UserGroupService userGroupService) {
     this.userValidatorService = userValidatorService;
     this.userRepository = userRepository;
+    this.userGroupService = userGroupService;
   }
 
   public User createUser(Long id, String firstName, String lastName, String address, int age, CivilStatus civilStatus) {
@@ -34,6 +37,8 @@ public class UserService {
     for (Long userId : userIds) {
       User user = userRepository.fetchUserById(userId);
       user.setUserGroup(userGroup);
+
+      userGroupService.userAddedToGroup(userGroup);
 
       userRepository.saveUser(user);
     }

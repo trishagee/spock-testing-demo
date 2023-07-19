@@ -1,4 +1,3 @@
-//file:noinspection GroovyAssignabilityCheck
 package com.mechanitis.demo.spock
 
 import spock.lang.Specification
@@ -11,7 +10,6 @@ class ExampleSpecification extends Specification {
         1 == 1
     }
 
-    // can use just when-then if there's no setup
     def "should demonstrate given-when-then"() {
         given:
         def shape = new Polygon(4)
@@ -28,9 +26,7 @@ class ExampleSpecification extends Specification {
         new Polygon(0)
 
         then:
-        // no need for .class
         def e = thrown(TooFewSidesException)
-        // no need for get
         e.numberOfSides == 0
     }
 
