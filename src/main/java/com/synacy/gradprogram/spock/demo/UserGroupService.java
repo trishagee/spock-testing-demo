@@ -10,6 +10,11 @@ public class UserGroupService {
     this.userGroupRepository = userGroupRepository;
   }
 
+  public UserGroup createUserGroup() {
+    // TODO: Implement me
+    return null;
+  }
+
   public void userAddedToGroup(UserGroup userGroup) {
     int newUserTotal = userGroup.getTotalUsersInGroup() + 1;
     userGroup.setTotalUsersInGroup(newUserTotal);
