@@ -28,7 +28,7 @@ public class ShoppingService {
   }
 
   public OrderSummary getOrderSummary(UUID orderId) {
-    Order order = orderRepository.fetchOrderById(orderId);
+    Order order = orderRepository.fetchOrderById(orderId).get();
     DeliveryRequest deliveryRequest = deliveryRequestRepository.fetchDeliveryRequestByOrderId(orderId);
 
     return new OrderSummary(order.getTotalCost(), order.getStatus(),

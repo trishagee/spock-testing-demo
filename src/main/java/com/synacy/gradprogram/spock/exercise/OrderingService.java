@@ -1,5 +1,7 @@
 package com.synacy.gradprogram.spock.exercise;
 
+import java.util.Date;
+
 public class OrderingService {
 
   private final OrderRepository orderRepository;
@@ -57,9 +59,15 @@ public class OrderingService {
     order.setRecipientName(recipientName);
     order.setRecipientAddress(recipientAddress);
     order.setStatus(OrderStatus.PENDING);
+    order.setDateOrdered(new Date());
 
     orderRepository.saveOrder(order);
 
     return order;
+  }
+
+  public void cancelOrder(CancelOrderRequest request) {
+    // TODO: Implement me. Cancels PENDING and FOR_DELIVERY orders and create a refund request saving it to the database.
+    //  Else throws an UnableToCancelException
   }
 }

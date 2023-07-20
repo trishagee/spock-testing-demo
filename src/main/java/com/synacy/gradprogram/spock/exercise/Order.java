@@ -1,5 +1,6 @@
 package com.synacy.gradprogram.spock.exercise;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class Order {
@@ -9,6 +10,7 @@ public class Order {
   private String recipientName;
   private String recipientAddress;
   private OrderStatus status;
+  private Date dateOrdered;
 
   public Order() {
     this.id = UUID.randomUUID();
@@ -48,5 +50,13 @@ public class Order {
 
   public void setStatus(OrderStatus status) {
     this.status = status;
+  }
+
+  public Date getDateOrdered() {
+    return dateOrdered;
+  }
+
+  public void setDateOrdered(Date dateOrdered) {
+    this.dateOrdered = dateOrdered;
   }
 }
