@@ -14,6 +14,10 @@ public class Order {
     this.id = UUID.randomUUID();
   }
 
+  public UUID getId() {
+    return id;
+  }
+
   public String getRecipientName() {
     return recipientName;
   }

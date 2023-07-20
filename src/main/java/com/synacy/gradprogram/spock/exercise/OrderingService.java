@@ -2,6 +2,12 @@ package com.synacy.gradprogram.spock.exercise;
 
 public class OrderingService {
 
+  private final OrderRepository orderRepository;
+
+  public OrderingService(OrderRepository orderRepository) {
+    this.orderRepository = orderRepository;
+  }
+
   public boolean cartContainsFoodItem(Cart cart) {
     for (Item item : cart.getItems()) {
       if (item.getType() == ItemType.FOOD) {
@@ -51,6 +57,8 @@ public class OrderingService {
     order.setRecipientName(recipientName);
     order.setRecipientAddress(recipientAddress);
     order.setStatus(OrderStatus.PENDING);
+
+    orderRepository.saveOrder(order);
 
     return order;
   }
