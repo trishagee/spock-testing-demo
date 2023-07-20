@@ -22,4 +22,8 @@ public class UserGroupService {
 
     userGroupRepository.updateUserGroup(userGroup);
   }
+
+  public void userRemovedToGroup(UserGroup userGroup) {
+    // TODO: Implement me
+  }
 }
