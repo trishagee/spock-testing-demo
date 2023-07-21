@@ -1,4 +1,4 @@
-package com.synacy.gradprogram.spock.exercise;
+package com.synacy.gradprogram.spock.exercise
 
 import com.synacy.gradprogram.spock.demo.User;
 import java.util.UUID;
