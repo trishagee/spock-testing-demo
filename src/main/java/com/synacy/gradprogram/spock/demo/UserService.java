@@ -45,7 +45,14 @@ public class UserService {
   }
 
   public void removeUserFromGroup(User user, UserGroup userGroup) {
-    // TODO: Implement me
+    if (user.getUserGroup() != userGroup) {
+      throw new UserDoesNotBelongToGroupException("Something");
+    }
+
+    userGroupService.userRemovedToGroup(userGroup);
+
+    user.setUserGroup(null);
+    userRepository.saveUser(user);
   }
 
 }
