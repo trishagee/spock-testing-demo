@@ -12,9 +12,16 @@ public class UserGroupService {
     this.dateService = dateService;
   }
 
-  public UserGroup createUserGroup() {
-    // TODO: Implement me
-    return null;
+  public UserGroup createUserGroup(Long id,String userGroupName,int totalUserInGroup,Date date) {
+    UserGroup userGroup = new UserGroup();
+    userGroup.setId(id);
+    userGroup.setUserGroupName(userGroupName);
+    userGroup.setTotalUsersInGroup(totalUserInGroup);
+    userGroup.setLastUserAddedDate(date);
+
+    userGroupRepository.saveUserGroup(userGroup);
+
+    return userGroup;
   }
 
   public void userAddedToGroup(UserGroup userGroup) {
@@ -26,6 +33,13 @@ public class UserGroupService {
   }
 
   public void userRemovedToGroup(UserGroup userGroup) {
-    // TODO: Implement me
+    if(userGroup.getTotalUsersInGroup()==0){
+      throw new EmptyUserGroupException();
+    }
+
+    int newUserTotal = userGroup.getTotalUsersInGroup() - 1;
+    userGroup.setTotalUsersInGroup(newUserTotal);
+
+    userGroupRepository.updateUserGroup(userGroup);
   }
 }

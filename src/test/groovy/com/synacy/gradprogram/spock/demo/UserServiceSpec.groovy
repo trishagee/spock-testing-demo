@@ -121,4 +121,41 @@ class UserServiceSpec extends Specification {
         then:
         2 * userGroupService.userAddedToGroup(userGroup)
     }
+
+    def "removeUserFromGroup should update User's UserGroup to null"() {
+        given:
+        UserGroup userGroup = Mock(UserGroup)
+        User user = new User(userGroup: userGroup)
+
+        when:
+        service.removeUserFromGroup(user, userGroup)
+
+        then:
+        null == user.getUserGroup()
+        1 * userRepository.saveUser(user)
+    }
+
+    def "removeUserFromGroup should throw a UserDoesNotBelongToGroupException when given User doesn't belong to the given UserGroup"() {
+        given:
+        UserGroup userGroup = Mock(UserGroup)
+        User user = new User(userGroup: Mock(UserGroup))
+
+        when:
+        service.removeUserFromGroup(user, userGroup)
+
+        then:
+        thrown(UserDoesNotBelongToGroupException)
+    }
+
+    def "removeUserFromGroup should remove User from UserGroup"() {
+        given:
+        UserGroup userGroup = Mock(UserGroup)
+        User user = new User(userGroup: userGroup)
+
+        when:
+        service.removeUserFromGroup(user, userGroup)
+
+        then:
+        1 * userGroupService.userRemovedToGroup(userGroup)
+    }
 }
