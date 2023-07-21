@@ -1,5 +1,6 @@
 package com.synacy.gradprogram.spock.exercise;
 
+
 public class OrderingService {
 
   public boolean cartContainsFoodItem(Cart cart) {
