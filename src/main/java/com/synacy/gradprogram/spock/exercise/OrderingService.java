@@ -6,8 +6,11 @@ public class OrderingService {
 
   private final OrderRepository orderRepository;
 
-  public OrderingService(OrderRepository orderRepository) {
+  private final DeliveryRequestRepository deliveryRequestRepository;
+
+  public OrderingService(OrderRepository orderRepository, DeliveryRequestRepository deliveryRequestRepository) {
     this.orderRepository = orderRepository;
+    this.deliveryRequestRepository = deliveryRequestRepository;
   }
 
   public boolean cartContainsFoodItem(Cart cart) {
@@ -77,6 +80,7 @@ public class OrderingService {
       request.getReason();
       request.setDateCancelled(new Date());
 
+      order.setStatus(OrderStatus.CANCELLED);
       order.setDateOrdered(new Date());
     }
 

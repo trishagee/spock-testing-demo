@@ -17,17 +17,22 @@ class OrderingServiceSpec extends Specification {
         given:
         UUID orderId = UUID.randomUUID()
         String recipient = "Clark"
-        String address = "Cebu"
+        String address = "Cebu"order
         CancelReason reason = CancelReason.DAMAGED
         Order orderStatus = OrderStatus.PENDING
 
-        CancelOrderRequest request = DeliveryRequestRepository.fetchDeliveryRequestByOrderId(orderId)
+
+        CancelOrderRequest request = orderRepository.fetchDeliveryRequestByOrderId(orderId)
 
         when:
-        Order order = service.cancelOrder(CancelOrderRequest request)
+        service.cancelOrder(request)
 
         then:
-        1 * OrderRepository.saveOrder(order)
+        1 * OrderRepository.saveOrder(_){ Order order ->
+            assert orderId == order.getId()
+            assert reason == request.getReason()
+
+        }
 
     }
 }
