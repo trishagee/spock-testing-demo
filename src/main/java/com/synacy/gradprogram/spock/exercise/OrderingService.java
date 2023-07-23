@@ -6,10 +6,13 @@ public class OrderingService {
 
   private final OrderRepository orderRepository;
 
+  private  final RefundRepository refundRepository;
+
   private final DeliveryRequestRepository deliveryRequestRepository;
 
-  public OrderingService(OrderRepository orderRepository, DeliveryRequestRepository deliveryRequestRepository) {
+  public OrderingService(OrderRepository orderRepository, RefundRepository refundRepository, DeliveryRequestRepository deliveryRequestRepository) {
     this.orderRepository = orderRepository;
+    this.refundRepository = refundRepository;
     this.deliveryRequestRepository = deliveryRequestRepository;
   }
 
@@ -69,21 +72,25 @@ public class OrderingService {
     return order;
   }
 
-  public void cancelOrder(CancelOrderRequest request) {
+  public void cancelOrder(CancelOrderRequest cancelOrderRequest, Order order) {
     // TODO: Implement me. Cancels PENDING and FOR_DELIVERY orders and create a refund request saving it to the database.
     //  Else throws an UnableToCancelException
-    Order order = new Order();
 
-    if(order.getStatus()==OrderStatus.PENDING ||
-            order.getStatus()==OrderStatus.FOR_DELIVERY){
-      order.getId();
-      request.getReason();
-      request.setDateCancelled(new Date());
+    RefundRequest refundRequest = new RefundRequest();
+
+    if (order.getStatus() == OrderStatus.PENDING ||
+            order.getStatus() == OrderStatus.FOR_DELIVERY) {
+
+      cancelOrderRequest.setOrderId(order.getId());
+      refundRequest.setOrderId(order.getId());
 
       order.setStatus(OrderStatus.CANCELLED);
-      order.setDateOrdered(new Date());
+      cancelOrderRequest.setDateCancelled(new Date());
+      cancelOrderRequest.getReason();
+
     }
 
     orderRepository.saveOrder(order);
+    refundRepository.saveRefundRequest(refundRequest);
   }
 }
