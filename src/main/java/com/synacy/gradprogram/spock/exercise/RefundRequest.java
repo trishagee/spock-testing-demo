@@ -6,7 +6,7 @@ import java.util.UUID;
 public class RefundRequest {
   private String recipientName;
   private UUID orderId;
-  private BigDecimal refundAmount;
+  private double refundAmount;
   private RefundRequestStatus status;
 
   public String getRecipientName() {
@@ -25,11 +25,11 @@ public class RefundRequest {
     this.orderId = orderId;
   }
 
-  public BigDecimal getRefundAmount() {
+  public double getRefundAmount() {
     return refundAmount;
   }
 
-  public void setRefundAmount(BigDecimal refundAmount) {
+  public void setRefundAmount(double refundAmount) {
     this.refundAmount = refundAmount;
   }
 

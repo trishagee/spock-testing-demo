@@ -16,23 +16,32 @@ class OrderingServiceSpec extends Specification {
 
     def "cancelOrder should cancel orders for PENDING and FOR_DELIVERY orders."(){
         given:
-        CancelOrderRequest request = new CancelOrderRequest()
-        Order order = new Order()
-        Order orderId = UUID.randomUUID()
-        String recipient = "Clark"
-        String address = "Cebu"
-        CancelReason reason = CancelReason.DAMAGED
-        Order orderStatus = OrderStatus.PENDING
-        CancelOrderRequest dateCancelled = request.setDateCancelled(new Date())
+        UUID id = UUID.randomUUID()
+        orderRepository.fetchOrderById(id)
 
-
+        Order order = new Order(id:id, totalCost: 500, recipientName: "Clark", recipientAddress: "Cebu", status: OrderStatus.FOR_DELIVERY)
+        CancelOrderRequest cancelOrderRequest = new CancelOrderRequest(reason: CancelReason.DAMAGED, dateCancelled: new Date())
 
         when:
-        RefundRequest refundRequest = service.cancelOrder(request, order)
+        RefundRequest refundRequest = service.cancelOrder(cancelOrderRequest, order)
 
         then:
         1 * refundRepository.saveRefundRequest(refundRequest)
 
+    }
+
+    def "cancelOrder should throw UnableToCancelException if order status is not OrderStatus.PENDING and OrderStatus.FOR_DELIVERY."(){
+        given:
+        CancelOrderRequest cancelOrderRequest = Mock(CancelOrderRequest)
+        Order order = Mock(Order)
+        order.getStatus() >> OrderStatus.DELIVERED
+
+        when:
+        service.cancelOrder(cancelOrderRequest, order)
+
+        then:
+        thrown(UnableToCancelException)
 
     }
+
 }

@@ -77,16 +77,19 @@ public class OrderingService {
     //  Else throws an UnableToCancelException
 
     RefundRequest refundRequest = new RefundRequest();
+    orderRepository.fetchOrderById(order.getId());
 
     if (order.getStatus() == OrderStatus.PENDING ||
             order.getStatus() == OrderStatus.FOR_DELIVERY) {
 
-      cancelOrderRequest.setOrderId(order.getId());
-      refundRequest.setOrderId(order.getId());
 
       order.setStatus(OrderStatus.CANCELLED);
       cancelOrderRequest.setDateCancelled(new Date());
-      cancelOrderRequest.getReason();
+      cancelOrderRequest.setReason(cancelOrderRequest.getReason());
+
+      refundRequest.setOrderId(cancelOrderRequest.getOrderId());
+      refundRequest.setRefundAmount(order.getTotalCost());
+      refundRequest.setStatus(RefundRequestStatus.TO_PROCESS);
 
     }
 
