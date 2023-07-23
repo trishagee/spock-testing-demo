@@ -11,6 +11,7 @@ class UserValidatorServiceSpec extends Specification {
     }
 
     def "isUserAgeValid should return #expectedValue"() {
+        /home/ precious / Documents / oop - exercise - 2023
         when:
         boolean actualValue = service.isUserAgeValid(age)
 
@@ -18,8 +19,8 @@ class UserValidatorServiceSpec extends Specification {
         expectedValue == actualValue
 
         where:
-        age     | expectedValue
-        21      | true
-        11      | false
+        age | expectedValue
+        21  | true
+        11  | false
     }
 }

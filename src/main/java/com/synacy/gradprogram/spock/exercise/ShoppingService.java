@@ -1,6 +1,7 @@
-package com.synacy.gradprogram.spock.exercise
+package com.synacy.gradprogram.spock.exercise;
 
 import com.synacy.gradprogram.spock.demo.User;
+
 import java.util.UUID;
 
 public class ShoppingService {
@@ -11,7 +12,7 @@ public class ShoppingService {
   private final DeliveryRequestRepository deliveryRequestRepository;
 
   public ShoppingService(OrderingService orderingService, DeliveryService deliveryService,
-      OrderRepository orderRepository, DeliveryRequestRepository deliveryRequestRepository) {
+                         OrderRepository orderRepository, DeliveryRequestRepository deliveryRequestRepository) {
     this.orderingService = orderingService;
     this.deliveryService = deliveryService;
     this.orderRepository = orderRepository;
@@ -32,6 +33,6 @@ public class ShoppingService {
     DeliveryRequest deliveryRequest = deliveryRequestRepository.fetchDeliveryRequestByOrderId(orderId);
 
     return new OrderSummary(order.getTotalCost(), order.getStatus(),
-        deliveryRequest.getDeliveryDate(), deliveryRequest.getCourier());
+            deliveryRequest.getDeliveryDate(), deliveryRequest.getCourier());
   }
 }
