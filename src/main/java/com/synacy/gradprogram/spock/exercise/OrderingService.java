@@ -69,7 +69,17 @@ public class OrderingService {
   public void cancelOrder(CancelOrderRequest request) {
     // TODO: Implement me. Cancels PENDING and FOR_DELIVERY orders and create a refund request saving it to the database.
     //  Else throws an UnableToCancelException
+    Order order = new Order();
 
+    if(order.getStatus()==OrderStatus.PENDING ||
+            order.getStatus()==OrderStatus.FOR_DELIVERY){
+      order.getId();
+      request.getReason();
+      request.setDateCancelled(new Date());
 
+      order.setDateOrdered(new Date());
+    }
+
+    orderRepository.saveOrder(order);
   }
 }
