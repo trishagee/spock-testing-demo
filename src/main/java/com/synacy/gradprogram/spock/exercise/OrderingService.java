@@ -72,7 +72,7 @@ public class OrderingService {
     return order;
   }
 
-  public void cancelOrder(CancelOrderRequest cancelOrderRequest, Order order) {
+  public void cancelOrder(CancelOrderRequest cancelOrderRequest, Order order) throws  UnableToCancelException{
     // TODO: Implement me. Cancels PENDING and FOR_DELIVERY orders and create a refund request saving it to the database.
     //  Else throws an UnableToCancelException
 
@@ -91,9 +91,12 @@ public class OrderingService {
       refundRequest.setRefundAmount(order.getTotalCost());
       refundRequest.setStatus(RefundRequestStatus.TO_PROCESS);
 
+      orderRepository.saveOrder(order);
+      refundRepository.saveRefundRequest(refundRequest);
+    }
+    else{
+      throw new UnableToCancelException("Unable to cancel order.");
     }
 
-    orderRepository.saveOrder(order);
-    refundRepository.saveRefundRequest(refundRequest);
   }
 }

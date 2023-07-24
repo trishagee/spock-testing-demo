@@ -8,7 +8,7 @@ class OrderingServiceSpec extends Specification {
 
     OrderRepository orderRepository = Mock(OrderRepository)
     RefundRepository refundRepository = Mock(RefundRepository)
-
+    RefundRequest refundRequest = Mock(RefundRequest)
 
     def setup(){
         service = new OrderingService()
@@ -18,6 +18,7 @@ class OrderingServiceSpec extends Specification {
         given:
         UUID id = UUID.randomUUID()
         orderRepository.fetchOrderById(id)
+
 
         Order order = new Order(id:id, totalCost: 500, recipientName: "Clark", recipientAddress: "Cebu", status: OrderStatus.FOR_DELIVERY)
         CancelOrderRequest cancelOrderRequest = new CancelOrderRequest(reason: CancelReason.DAMAGED, dateCancelled: new Date())
@@ -34,6 +35,8 @@ class OrderingServiceSpec extends Specification {
         given:
         CancelOrderRequest cancelOrderRequest = Mock(CancelOrderRequest)
         Order order = Mock(Order)
+        Order orderId = order.getId() >> UUID.randomUUID()
+        OrderRepository.fe
         order.getStatus() >> OrderStatus.DELIVERED
 
         when:
