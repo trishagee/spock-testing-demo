@@ -9,6 +9,7 @@ class RefundServiceSpec extends Specification {
     CancelOrderRequest cancelOrderRequest = Mock(CancelOrderRequest)
     RefundRepository refundRepository = Mock(RefundRepository)
     OrderRepository orderRepository = Mock(OrderRepository)
+    Order order = Mock(Order)
 
     def setup(){
         service = new RefundService()
@@ -16,16 +17,19 @@ class RefundServiceSpec extends Specification {
 
     def "calculateRefund should calculate the refund if CancelReason is CancelReason.DAMAGED."(){
         given:
-        cancelOrderRequest.getOrderId() >> UUID.randomUUID()
+        cancelOrderRequest.getOrderId() >> orderRepository.fetchOrderById(UUID.randomUUID())
         cancelOrderRequest.getDateCancelled() >> new Date()
         cancelOrderRequest.getReason() >> CancelReason.DAMAGED
+        order.getTotalCost() >> 500.0
 
-
+        RefundRequest refund = Mock(RefundRequest)
 
         when:
-        RefundRequest refund = service.calculateRefund(cancelOrderRequest)
+        service.calculateRefund(cancelOrderRequest, order)
 
         then:
         refundRepository.saveRefundRequest(refund)
     }
+
+
 }
