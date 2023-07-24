@@ -21,7 +21,7 @@ public class DeliveryService {
     return deliveryRequest;
   }
 
-  private Courier determineCourier(double orderTotalCost) {
+  Courier determineCourier(double orderTotalCost) {
     if (orderTotalCost < 20) {
       return Courier.JRS;
     } else if (orderTotalCost >= 20 && orderTotalCost <= 30) {

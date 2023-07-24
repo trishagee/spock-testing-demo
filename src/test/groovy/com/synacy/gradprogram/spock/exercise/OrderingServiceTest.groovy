@@ -1,6 +1,5 @@
 package com.synacy.gradprogram.spock.exercise
 
-
 import spock.lang.Specification
 
 class OrderingServiceTest extends Specification {
@@ -23,7 +22,7 @@ class OrderingServiceTest extends Specification {
         service = new OrderingService(orderRepository)
     }
 
-    def "validateCartItem Should Validate the Cart Items have food order in the Cart"() {
+    def "validateCartItem Should Validate the Cart Items if there food order in the Cart"() {
         given:
         def items = [
                 new Item("Chicken Cordon", 40, ItemType.FOOD),
@@ -34,10 +33,13 @@ class OrderingServiceTest extends Specification {
                 new Item("Headset", 500, ItemType.GADGET)
         ]
         Cart itemsInTheCart = new Cart(UUID.randomUUID(), items)
+
         when:
         boolean containsFoodItem = service.cartContainsFoodItem(itemsInTheCart)
+
         then:
         containsFoodItem
+
     }
 
     def "CalculateTotalCostOfCart should calculate the total cost of the items in the cart"() {
@@ -168,7 +170,7 @@ class OrderingServiceTest extends Specification {
         String recipientName = "Precious"
         String recipientAddress = "Lapu-lapu City"
         boolean canContainFood = false
-        
+
         when:
         service.createAnOrder(itemsInTheCart, recipientName, recipientAddress, canContainFood)
         then:
