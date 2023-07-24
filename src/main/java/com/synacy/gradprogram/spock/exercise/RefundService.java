@@ -15,8 +15,11 @@ public class RefundService {
     RefundRequest refund = new RefundRequest();
     RefundRepository refundRepository = new RefundRepository();
 
+
     if(cancelOrderRequest.getReason() == CancelReason.DAMAGED){
+      refund.setOrderId(cancelOrderRequest.getOrderId());
       refund.setRefundAmount(order.getTotalCost());
+      refund.setStatus(RefundRequestStatus.TO_PROCESS);
 
       refundRepository.saveRefundRequest(refund);
 

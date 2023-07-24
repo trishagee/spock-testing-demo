@@ -17,10 +17,11 @@ class RefundServiceSpec extends Specification {
 
     def "calculateRefund should calculate the refund if CancelReason is CancelReason.DAMAGED."(){
         given:
-        cancelOrderRequest.getOrderId() >> orderRepository.fetchOrderById(UUID.randomUUID())
+        cancelOrderRequest.getOrderId() >> UUID.randomUUID()
         cancelOrderRequest.getDateCancelled() >> new Date()
         cancelOrderRequest.getReason() >> CancelReason.DAMAGED
         order.getTotalCost() >> 500.0
+
 
         RefundRequest refund = Mock(RefundRequest)
 
