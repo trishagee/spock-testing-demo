@@ -31,5 +31,20 @@ class RefundServiceSpec extends Specification {
         refundRepository.saveRefundRequest(refund)
     }
 
+    def "calculateRefund should full refund if the order was cancelled within 3 days of order date"(){
+        cancelOrderRequest.getOrderId() >> orderRepository.fetchOrderById(UUID.randomUUID())
+        cancelOrderRequest.getDateCancelled() >> new Date()
+        cancelOrderRequest.getReason() >> CancelReason.DAMAGED
+        order.getTotalCost() >> 500.0
+        order.getDateOrdered() >> 2023-07-16
+        cancelOrderRequest.dateCancelled >> 2023-07-17
 
+        RefundRequest refund = Mock(RefundRequest)
+
+        when:
+        service.calculateRefund(cancelOrderRequest, order)
+
+        then:
+        refundRepository.saveRefundRequest(refund)
+    }
 }
